@@ -382,31 +382,31 @@ var op2Comparable = map[string]compareProducer{
 
 var OpOrder = []string{opEq, opIn, opNe1, opNe2, opNotIn, opGt, opGte, opLt, opLte, opLike, opNotLike, opBetween, opNotBetween, opNull}
 
-type Statement func(field string, value interface{}) (msql.msqlizer, error)
+type Statement func(field string, value interface{}) (msql.ZSqlizer, error)
 
 var OpOp = map[string]Statement{
-	opEq: func(field string, value interface{}) (msql.msqlizer, error) {
+	opEq: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		return squirrel.Eq{field: value}, nil
 	},
-	opNe1: func(field string, value interface{}) (msql.msqlizer, error) {
+	opNe1: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		return squirrel.NotEq{field: value}, nil
 	},
-	opNe2: func(field string, value interface{}) (msql.msqlizer, error) {
+	opNe2: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		return squirrel.NotEq{field: value}, nil
 	},
-	opIn: func(field string, value interface{}) (msql.msqlizer, error) {
+	opIn: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		if reflect.ValueOf(value).Kind() == reflect.Slice {
 			return squirrel.Eq{field: value}, nil
 		}
 		return squirrel.Eq{}, ErrNotASliceValueForInStatement
 	},
-	opNotIn: func(field string, value interface{}) (msql.msqlizer, error) {
+	opNotIn: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		if reflect.ValueOf(value).Kind() == reflect.Slice {
 			return squirrel.NotEq{field: value}, nil
 		}
 		return squirrel.NotEq{}, ErrNotASliceValueForInStatement
 	},
-	opBetween: func(field string, value interface{}) (msql.msqlizer, error) {
+	opBetween: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		if reflect.ValueOf(value).Kind() == reflect.Slice && reflect.ValueOf(value).Len() == 2 {
 			return squirrel.Expr(fmt.Sprintf("%s BETWEEN ? AND ?", field),
 				reflect.ValueOf(value).Index(0).Interface(),
@@ -415,7 +415,7 @@ var OpOp = map[string]Statement{
 		}
 		return squirrel.Eq{}, ErrNotASliceValueForBetweenStatement
 	},
-	opNotBetween: func(field string, value interface{}) (msql.msqlizer, error) {
+	opNotBetween: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		if reflect.ValueOf(value).Kind() == reflect.Slice && reflect.ValueOf(value).Len() == 2 {
 			return squirrel.Expr(fmt.Sprintf("%s NOT BETWEEN ? AND ?", field),
 				reflect.ValueOf(value).Index(0).Interface(),
@@ -424,25 +424,25 @@ var OpOp = map[string]Statement{
 		}
 		return squirrel.Eq{}, ErrNotASliceValueForBetweenStatement
 	},
-	opGt: func(field string, value interface{}) (msql.msqlizer, error) {
+	opGt: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		return squirrel.Gt{field: value}, nil
 	},
-	opGte: func(field string, value interface{}) (msql.msqlizer, error) {
+	opGte: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		return squirrel.GtOrEq{field: value}, nil
 	},
-	opLt: func(field string, value interface{}) (msql.msqlizer, error) {
+	opLt: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		return squirrel.Lt{field: value}, nil
 	},
-	opLte: func(field string, value interface{}) (msql.msqlizer, error) {
+	opLte: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		return squirrel.LtOrEq{field: value}, nil
 	},
-	opLike: func(field string, value interface{}) (msql.msqlizer, error) {
+	opLike: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		return squirrel.Like{field: value}, nil
 	},
-	opNotLike: func(field string, value interface{}) (msql.msqlizer, error) {
+	opNotLike: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		return squirrel.NotLike{field: value}, nil
 	},
-	opNull: func(field string, value interface{}) (msql.msqlizer, error) {
+	opNull: func(field string, value interface{}) (msql.ZSqlizer, error) {
 		fmt.Println(field, value)
 		return squirrel.Expr(fmt.Sprintf("%s %s", field, value.(NullType).String())), nil
 	},
