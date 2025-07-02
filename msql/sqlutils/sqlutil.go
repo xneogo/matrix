@@ -25,13 +25,13 @@ package sqlutils
 import (
 	"context"
 	"fmt"
-	"github.com/qiguanzhu/infra/pkg"
-	"github.com/qiguanzhu/infra/seele/zsql"
 	"reflect"
 	"regexp"
 	"sort"
 	"strings"
 	"sync"
+
+	"github.com/xneogo/matrix/msql"
 )
 
 var (
