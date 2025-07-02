@@ -55,9 +55,9 @@ type ResultResolver interface {
 	Float64() float64
 }
 
-// ZSqlizer is a wrapper of "github.com/Masterminds/squirrel".Sqlizer
+// MSqlizer is a wrapper of "github.com/Masterminds/squirrel".Sqlizer
 // so we can make some customizes of ToSql function
-type ZSqlizer interface {
+type MSqlizer interface {
 	ToSql() (string, []interface{}, error)
 }
 type ToSql func(tName string, columns ...string) (string, []interface{}, error)
