@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "util.grpcutil";
+option java_outer_classname = "grpcutil";
+option go_package = "github.com/xneogo/matrix/mtransport/grpc/util/grpcutil";
+
+//    call at path where *.proto is
+//    protoc --go_out=grpc/util/grpcutil --go_opt=paths=source_relative \
+//    --go-grpc_out=grpc/util/grpcutil --go-grpc_opt=paths=source_relative \
+//    GrpcUtil.proto
+package util.grpcutil;
+
+
+message ErrInfo {
+    int32 code = 1;
+    string msg = 2;
+}
