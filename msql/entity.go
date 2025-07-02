@@ -24,7 +24,6 @@ package msql
 
 import (
 	"database/sql"
-	"github.com/qiguanzhu/infra/pkg/consts"
 	"time"
 )
 
@@ -45,22 +44,22 @@ type MysqlConf struct {
 
 func (c *MysqlConf) LoadDefault(insName string) {
 	if c.TimeoutMsec == 0 {
-		c.TimeoutMsec = consts.DefaultTimeoutSecond
+		c.TimeoutMsec = DefaultTimeoutSecond
 	}
 	if c.ReadTimeoutMsec == 0 {
-		c.ReadTimeoutMsec = consts.DefaultReadTimeoutSecond
+		c.ReadTimeoutMsec = DefaultReadTimeoutSecond
 	}
 	if c.WriteTimeoutMsec == 0 {
-		c.WriteTimeoutMsec = consts.DefaultWriteTimeoutSecond
+		c.WriteTimeoutMsec = DefaultWriteTimeoutSecond
 	}
 	if c.MaxLifeTimeSec == 0 {
-		c.MaxLifeTimeSec = consts.DefaultMaxLifeTimeSecond
+		c.MaxLifeTimeSec = DefaultMaxLifeTimeSecond
 	}
 	if c.MaxIdleConns == 0 {
-		c.MaxIdleConns = consts.DefaultMaxIdleConns
+		c.MaxIdleConns = DefaultMaxIdleConns
 	}
 	if c.MaxOpenConns == 0 {
-		c.MaxOpenConns = consts.DefaultMaxOpenConns
+		c.MaxOpenConns = DefaultMaxOpenConns
 	}
 
 }

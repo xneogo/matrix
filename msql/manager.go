@@ -25,15 +25,16 @@ package msql
 import (
 	"context"
 	"database/sql"
-	"github.com/qiguanzhu/infra/seele/zconfig"
-	"github.com/qiguanzhu/infra/seele/zconfig/zobserver"
+
+	"github.com/xneogo/matrix/mconfig"
+	"github.com/xneogo/matrix/mconfig/mobserver"
 )
 
 // ManagerProxy DBManagerProxy 定义 manager 的操作。涉及不同的库 or 配置可以维护不同的 manager。
 type ManagerProxy interface {
-	InitConf(ctx context.Context, config zconfig.ConfigCenter) error
+	InitConf(ctx context.Context, config mconfig.ConfigCenter) error
 	GetDB(ctx context.Context, insName, dbName string) (XDBWrapper, error)
-	ReloadConf(ctx context.Context, config zconfig.ConfigCenter, event zobserver.ChangeEvent) error
+	ReloadConf(ctx context.Context, config mconfig.ConfigCenter, event mobserver.ChangeEvent) error
 	GetInstance(insName, dbName string) (DBInstanceProxy, error)
 }
 
