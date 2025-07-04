@@ -20,7 +20,7 @@
  @Description: mmq mmq/mq.go
 */
 
-package xmq
+package mmq
 
 import "context"
 
