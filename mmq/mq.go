@@ -24,10 +24,17 @@ package mmq
 
 import "context"
 
-type Handler interface {
-	CommitMsg(ctx context.Context) error
-}
+// Handler 适用于 Kafka
+// type Handler interface {
+// 	CommitMsg(ctx context.Context) error
+// }
 
+// AckHandler 适用于 Pulsar
+// type AckHandler interface {
+// 	Ack(ctx context.Context) error
+// }
+
+// AckHandler 统一为 AckHandler
 type AckHandler interface {
 	Ack(ctx context.Context) error
 }
@@ -54,7 +61,7 @@ type QReader interface {
 	// ReadMsgByPartition ...
 	ReadMsgByPartition(ctx context.Context, topic string, partition int, value interface{}) (context.Context, error)
 	// FetchMsgByGroup 读完消息后不会自动提交offset,需要手动调用Handle.CommitMsg方法来提交offset
-	FetchMsgByGroup(ctx context.Context, topic, groupID string, value interface{}) (context.Context, Handler, error)
+	FetchMsgByGroup(ctx context.Context, topic, groupID string, value interface{}) (context.Context, AckHandler, error)
 }
 
 type QWriter interface {
