@@ -101,3 +101,8 @@ type EtcdGlobalLocker interface {
 	UnlockGlobal(ctx context.Context, name string) error
 	TryLockGlobal(ctx context.Context, name string) (bool, error)
 }
+
+type Converter[From any, To any] interface {
+	Convert(ctx context.Context, f From) *To
+	MultiConvert(ctx context.Context, fs []From) []*To
+}

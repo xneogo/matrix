@@ -24,11 +24,9 @@ package msql
 
 import "context"
 
-type Converter[Data any, Entity any] interface {
+type RepoConverter[Data any, Entity any] interface {
 	ToEntity(ctx context.Context, data Data) *Entity
-	MultiToEntity(ctx context.Context, datas []Data) []*Entity
-
-	ToConditions(ctx context.Context, ent Entity) ConditionsProxy
+	MultiToEntity(ctx context.Context, ds []Data) []*Entity
 }
 
 // DaoModel
